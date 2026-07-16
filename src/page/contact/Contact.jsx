@@ -5,6 +5,15 @@ import PageTransition from "../../components/PageTransition";
 import visitImg from "../../img/visit.webp";
 
 function Contact() {
+  const darkStyle = [
+    { elementType: "geometry", stylers: [{ color: "#0f0f0f" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#0f0f0f" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#c6a15b" }] },
+    {
+      featureType: "water",
+      stylers: [{ color: "#000000" }],
+    },
+  ];
   return (
     <PageTransition>
       <div className="visit_page">
@@ -71,6 +80,7 @@ function Contact() {
               src="https://www.google.com/maps/embed?pb=!1m18..."
               loading="lazy"
             ></iframe>
+            <div className="map_overlay"></div>
           </div>
         </section>
       </div>

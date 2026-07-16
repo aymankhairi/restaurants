@@ -28,7 +28,7 @@ function Story() {
         </section>
 
         {/* PHILOSOPHY */}
-        <section className="story_section">
+        {/* <section className="story_section">
           <div className="story_block">
             <h2>The Essence of Reverie</h2>
             <p>
@@ -37,7 +37,7 @@ function Story() {
               and time.
             </p>
           </div>
-        </section>
+        </section> */}
 
         {/* CHEF STORY */}
         <section className="story_split">

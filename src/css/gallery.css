@@ -134,35 +134,43 @@
     height: 250px;
   }
 }
+/* FILTERS */
 .gallery_filters {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 50px;
+  gap: 14px;
   flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 
 .gallery_filters button {
-  padding: 10px 20px;
-  border: 1px solid rgba(198, 161, 91, 0.3);
-  background: transparent;
-  color: var(--text_color);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted_text);
+  padding: 12px 22px;
+  border-radius: 999px;
   cursor: pointer;
-  border-radius: 30px;
-  transition: 0.3s ease;
-  font-size: 13px;
-  letter-spacing: 1px;
+  transition: all 0.35s ease;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
 }
 
+/* HOVER */
 .gallery_filters button:hover {
-  border-color: var(--main_color);
-  color: var(--main_color);
+  color: var(--text_color);
+  border-color: rgba(198, 161, 91, 0.4);
+  transform: translateY(-2px);
 }
 
+/* ACTIVE */
 .gallery_filters button.active {
-  background: var(--main_color);
-  color: #000;
+  background: rgba(198, 161, 91, 0.12);
+  color: var(--main_color);
+  border-color: rgba(198, 161, 91, 0.45);
+  box-shadow: 0 0 25px rgba(198, 161, 91, 0.15);
 }
+
 /* LIGHTBOX BACKGROUND */
 .lightbox {
   position: fixed;

@@ -15,13 +15,16 @@
   --muted_text: #aaa;
   --border_color: rgba(255, 255, 255, 0.08);
 }
+html {
+  overflow-x: hidden;
+}
 body {
   overflow-x: hidden;
 
   background: var(--bg_color);
   color: var(--text_color);
   font-family: "Inter", sans-serif;
-  padding-top: 200px; /* adjust based on your header height */
+  padding-top: 100px; /* adjust based on your header height */
 }
 img {
   width: 100%;

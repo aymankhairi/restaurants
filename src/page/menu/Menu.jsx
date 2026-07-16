@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/menu.css";
 import PageTransition from "../../components/PageTransition";
 import TruffleBurrata from "../../img/TruffleBurrata.webp";
@@ -256,7 +256,8 @@ function Menu() {
       ],
     },
   ];
-
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedImage, setSelectedImage] = useState(null);
   return (
     <PageTransition>
       <div className="menu_page">
@@ -275,35 +276,72 @@ function Menu() {
             </p>
           </div>
         </section>
-
+        {/* menu_filters */}
+        <div className="menu_filters">
+          {["All", ...categories.map((cat) => cat.title)].map((category) => (
+            <button
+              key={category}
+              className={`filter_btn ${
+                activeCategory === category ? "active" : ""
+              }`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
         {/* MENU */}
         <section className="menu_section">
-          {categories.map((cat, i) => (
-            <div className="menu_category" key={i}>
-              <h2 className="menu_category_title">{cat.title}</h2>
+          {categories
+            .filter(
+              (cat) => activeCategory === "All" || cat.title === activeCategory,
+            )
+            .map((cat, i) => (
+              <div className="menu_category" key={i}>
+                <h2 className="menu_category_title">{cat.title}</h2>
 
-              <div className="menu_items">
-                {cat.items.map((item, j) => (
-                  <div className="menu_item" key={j}>
-                    <div className="menu_item_content">
-                      <div className="menu_item_top">
-                        <h3>{item.name}</h3>
-                        <span className="price">{item.price}</span>
+                <div className="menu_items">
+                  {cat.items.map((item, j) => (
+                    <div className="menu_item" key={j}>
+                      <div className="menu_item_content">
+                        <div className="menu_item_top">
+                          <h3>{item.name}</h3>
+                          <span className="price">{item.price}</span>
+                        </div>
+
+                        <p className="menu_desc">{item.desc}</p>
                       </div>
 
-                      <p className="menu_desc">{item.desc}</p>
+                      {/* HOVER IMAGE */}
+                      <div
+                        className="menu_hover_image"
+                        onClick={() => setSelectedImage(item.img)}
+                      >
+                        <img src={item.img} alt={item.name} />
+                      </div>
                     </div>
-
-                    {/* HOVER IMAGE */}
-                    <div className="menu_hover_image">
-                      <img src={item.img} alt={item.name} />
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </section>
+        {selectedImage && (
+          <div
+            className="image_modal_overlay"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="image_modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="image_modal_close"
+                onClick={() => setSelectedImage(null)}
+              >
+                ✕
+              </button>
+
+              <img src={selectedImage} alt="Dish Preview" />
+            </div>
+          </div>
+        )}
       </div>
     </PageTransition>
   );

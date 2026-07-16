@@ -93,7 +93,7 @@
 
 /* SECTION */
 .section {
-  padding: 100px 20px;
+  padding: 10px 20px;
   text-align: center;
 }
 
@@ -108,33 +108,109 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 25px;
+  justify-items: center;
 }
+/* Plate container */
 
 .dish_card {
-  border-radius: 100%;
   position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
   overflow: hidden;
+  /* plate design */
+  background: radial-gradient(
+    circle,
+    var(--main_color) 35%,
+    var(--main_color) 75%,
+    var(--main_color) 100%
+  );
+  padding: 18px;
+  box-shadow:
+    inset 0 0 0 8px var(--main_color),
+    inset 0 0 0 16px #d7d7d7,
+    inset 0 0 20px rgba(0, 0, 0, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  transition: transform 0.5s ease;
 }
+/* hover effect */
+.dish_card:hover {
+  transform: translateY(-8px) scale(1.03);
+}
+/* food image inside plate */
 
 .dish_card img {
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
-  transition: 0.6s ease;
+
+  border-radius: 50%;
+
+  transition: transform 0.7s ease;
 }
 
 .dish_card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
+/* luxury dark overlay */
 .dish_overlay {
   position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
   bottom: 0;
   width: 100%;
-  padding: 50px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  opacity: 0;
+  transition: 0.4s ease;
 }
+.dish_card:hover .dish_overlay {
+  opacity: 1;
+  align-items: center;
+  padding-right: 50px;
 
+  justify-content: center;
+}
+.dish_overlay h3 {
+  color: rgb(255, 209, 94);
+  font-family: "Playfair Display", serif;
+  margin-bottom: 8px;
+  font-size: 22px;
+  align-items: center;
+}
+.dish_overlay p {
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* Mobile */
+@media (max-width: 768px) {
+  .dish_card {
+    width: 260px;
+    height: 260px;
+  }
+
+  .dish_overlay h3 {
+    font-size: 18px;
+    justify-content: center;
+    padding-right: 10%;
+
+    align-items: center;
+  }
+
+  .dish_overlay p {
+    font-size: 13px;
+    padding-right: 10%;
+    justify-content: center;
+    align-items: center;
+  }
+}
 /* STORY */
 .story_container {
   display: grid;
@@ -143,10 +219,12 @@
   gap: 80px;
   max-width: 1200px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
 }
 /* IMAGE SIDE */
 .story_image_wrapper {
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   box-shadow:
     inset 0 0 0 8px #2a2a2a,
@@ -159,13 +237,20 @@
 
 .story_image_wrapper img {
   width: 100%;
-  height: 500px;
+  height: 100%;
   /* border-radius: 100%; */
   object-fit: cover;
   transform: scale(1.05);
   transition: 0.8s ease;
 }
-
+/* Guests FULL ROW */
+.reservation_form select {
+  grid-column: 1 / -1;
+}
+/* PHONE FULL ROW */
+.reservation_form input[type="tel"] {
+  grid-column: 1 / -1;
+}
 .story_image_wrapper:hover img {
   transform: scale(1.15);
 }
@@ -216,7 +301,7 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .experience {
-    padding-top: 20px;
+    padding-top: 60px;
     height: auto;
     /* padding: 100px 10px; */
     background-attachment: scroll;
@@ -285,7 +370,7 @@
   display: flex;
 
   justify-content: center;
-  gap: 50px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
@@ -312,8 +397,9 @@
 
 /* RESERVATION */
 .reservation {
+  min-height: 100vh;
   position: relative;
-  padding: 120px 20px;
+  padding: 20px;
   background: url("../img/reservation.webp") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -335,7 +421,7 @@
   max-width: 750px;
   width: 100%;
   text-align: center;
-  padding: 50px 30px;
+  padding: 25px;
 
   /* glass effect */
   background: rgba(255, 255, 255, 0.03);
@@ -393,7 +479,39 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .input_group {
   position: relative;
 }
+/* placeholder */
+.fake_placeholder {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--bg_color);
+  pointer-events: none;
+  font-size: 14px;
+  z-index: 2;
+}
 
+/* hide native mm/dd/yyyy + hh:mm text */
+.empty-date {
+  color: transparent;
+}
+
+.empty-date::-webkit-datetime-edit {
+  color: transparent;
+}
+
+.empty-date::-webkit-calendar-picker-indicator {
+  opacity: 1;
+}
+
+/* show text when clicked */
+.empty-date:focus {
+  color: var(--text_color);
+}
+
+.empty-date:focus::-webkit-datetime-edit {
+  color: var(--text_color);
+}
 .input_group input {
   width: 100%;
   cursor: pointer;
@@ -401,6 +519,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .reservation_form {
   display: grid;
   gap: 15px;
+  grid-template-columns: 1fr 1fr;
   margin-top: 20px;
 }
 .reservation_form select option {
@@ -441,6 +560,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .full_btn {
   width: 100%;
   margin-top: 10px;
+  grid-column: 1 / -1;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -459,8 +579,31 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 /* MOBILE */
 @media (max-width: 768px) {
+  .reservation_form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reservation {
+    padding: 40px 15px;
+  }
+
   .reservation_container {
-    padding: 40px 20px;
+    padding: 25px 15px;
+  }
+
+  .reservation_container h2 {
+    font-size: 32px;
+  }
+
+  .reservation_container p {
+    margin-bottom: 20px;
+  }
+  .full_btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 10px auto 0;
+    display: block;
   }
 }
 
@@ -504,4 +647,158 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   .story_text {
     text-align: center;
   }
+}
+@media (max-width: 768px) {
+  .hero_actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin-top: 25px;
+  }
+
+  .btn_primary,
+  .btn_secondary {
+    width: 100%;
+    max-width: 280px;
+
+    padding: 15px 20px;
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    transition: all 0.35s ease;
+  }
+
+  /* Luxury primary button */
+  .btn_primary {
+    background: linear-gradient(135deg, #d4b06a, #b99145);
+
+    border: 1px solid rgba(255, 223, 170, 0.2);
+
+    color: #1a1a1a;
+
+    box-shadow:
+      0 10px 25px rgba(198, 161, 91, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .btn_primary:active {
+    transform: scale(0.97);
+  }
+
+  /* Elegant secondary button */
+  .btn_secondary {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(198, 161, 91, 0.25);
+
+    color: #f4ead8;
+  }
+
+  .btn_secondary:active {
+    transform: scale(0.97);
+  }
+}
+
+/* SUCCESS MODAL */
+.success_modal_overlay {
+  padding-top: 10%;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+  animation: fadeIn 0.3s ease;
+}
+
+.success_modal {
+  width: min(90%, 520px);
+  max-width: 85vh;
+  overflow-y: auto;
+
+  text-align: center;
+  /* padding: 50px 35px; */
+  padding: clamp(25px, 6vw, 50px) clamp(20px, 5vw, 35px);
+
+  border-radius: 24px;
+
+  background: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(198, 161, 91, 0.25);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(198, 161, 91, 0.12);
+
+  animation: successPop 0.35s ease;
+}
+
+.success_icon {
+  /* width: 85px;
+  height: 85px; */
+  width: clamp(65px, 12vw, 85px);
+  height: clamp(65px, 12vw, 85px);
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* font-size: 38px; */
+  font-size: clamp(28px, 6vw, 38px);
+
+  font-weight: bold;
+
+  color: #111;
+  background: linear-gradient(135deg, #d4b06a, #c6a15b);
+
+  box-shadow: 0 0 30px rgba(198, 161, 91, 0.35);
+}
+
+.success_modal h2 {
+  font-family: "Playfair Display", serif;
+  margin: 15px 0;
+  font-size: clamp(22px, 5vw, 40px);
+}
+
+.success_modal p {
+  font-size: clamp(13px, 3.5vw, 16px);
+
+  color: var(--muted_text);
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.error_text {
+  color: #ff5c5c;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
 }

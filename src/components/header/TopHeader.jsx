@@ -7,6 +7,7 @@ import SearchBox from "./SearchBox";
 import { useLocation } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 const NavLinks = [
+  { title: "", link: "/" },
   { title: "Home", link: "/" },
   { title: "Menu", link: "/menu" },
   { title: "Our Story", link: "/about" },
@@ -30,6 +31,17 @@ function TopHeader() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [menuOpen]);
   return (
     <div className="top_header">
       <div className="container">

@@ -56,7 +56,7 @@
 
 /* SECTION */
 .menu_section {
-  padding: 100px 20px;
+  padding: 30px 20px;
   max-width: 1000px;
   margin: auto;
 }
@@ -172,15 +172,16 @@
 /* HOVER IMAGE */
 .menu_hover_image {
   position: absolute;
+  z-index: 999;
+
   top: 50%;
   right: -120px;
   transform: translateY(-50%) scale(0.9);
   opacity: 0;
-
   width: 180px;
   height: 120px;
-
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   transition: all 0.5s ease;
 }
 
@@ -196,6 +197,7 @@
   object-position: center;
   transform: scale(1.05);
   transition: transform 0.4s ease;
+  cursor: pointer;
 
   border-radius: 12px;
   aspect-ratio: 3 / 2;
@@ -292,8 +294,161 @@
 .menu_item:hover::after {
   opacity: 1;
 }
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .menu_hover_image {
     display: none;
+  }
+} */
+@media (max-width: 768px) {
+  .menu_item {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 14px;
+  }
+
+  .menu_item_content {
+    flex: 1;
+  }
+
+  .menu_hover_image {
+    position: static;
+    opacity: 1;
+    transform: none;
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    pointer-events: auto;
+  }
+
+  .menu_hover_image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    transform: none;
+  }
+
+  .menu_item:hover .menu_hover_image {
+    right: auto;
+    transform: none;
+  }
+
+  .menu_item_top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .menu_item h3 {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .menu_desc {
+    font-size: 13px;
+  }
+}
+/* FILTERS */
+.menu_filters {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.filter_btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted_text);
+  padding: 12px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.filter_btn:hover {
+  color: var(--text_color);
+  border-color: rgba(198, 161, 91, 0.4);
+  transform: translateY(-2px);
+}
+
+.filter_btn.active {
+  background: rgba(198, 161, 91, 0.12);
+  color: var(--main_color);
+  border-color: rgba(198, 161, 91, 0.45);
+  box-shadow: 0 0 25px rgba(198, 161, 91, 0.15);
+}
+.image_modal_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+  animation: modalFade 0.25s ease;
+}
+/* Modal */
+.image_modal {
+  position: relative;
+  animation: modalZoom 0.35s ease;
+}
+.image_modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 16px;
+  object-fit: contain;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(198, 161, 91, 0.15);
+}
+/* Close Button */
+.image_modal_close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(20, 20, 20, 0.95);
+  color: #c6a15b;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+.image_modal_close:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: #c6a15b;
+  color: #111;
+}
+/* Animations */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modalZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
